@@ -28,7 +28,7 @@ features = penguin_df[
 features = pd.get_dummies(features)
 output, uniques = pd.factorize(output)
 
-x_train, x_test, y_train, y_test = train_test_split(features, output, test_size=0.8)
+x_train, x_test, y_train, y_test = train_test_split(features, output, test_size=0.2)
 rfc = RandomForestClassifier(random_state=15, max_depth=5)
 rfc.fit(x_train.values, y_train)
 y_pred = rfc.predict(x_test.values)
@@ -55,6 +55,7 @@ output_pickle.close()
 # that we want to write, not read, to this file
 
 # Create figure and axis for feature importance plot
+sns.set_style("darkgrid")
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x=rfc.feature_importances_, y=features.columns, ax=ax)
 ax.set_title("Which features are the most important for species prediction?")
